@@ -1,0 +1,83 @@
+plugins {
+    id("org.jetbrains.kotlin.jvm") version "1.4.10"
+    id("org.jetbrains.kotlin.kapt") version "1.4.10"
+    id("org.jetbrains.kotlin.plugin.allopen") version "1.4.10"
+    id("org.jetbrains.kotlin.plugin.jpa") version "1.4.10"
+    id("com.github.johnrengelman.shadow") version "6.1.0"
+    id("io.micronaut.application") version "1.2.0"
+}
+
+version = "0.1"
+group = "ge.lis.cubiq"
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+micronaut {
+    runtime("netty")
+    testRuntime("junit5")
+    processing {
+        incremental(true)
+        annotations("ge.lis.cubiq.*")
+    }
+}
+
+dependencies {
+    kapt("io.micronaut.data:micronaut-data-processor")
+    kapt("io.micronaut.security:micronaut-security-annotations")
+    implementation("io.micronaut:micronaut-validation")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinVersion}")
+    implementation("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}")
+    implementation("io.micronaut.kotlin:micronaut-kotlin-runtime")
+    implementation("io.micronaut:micronaut-runtime")
+    implementation("javax.annotation:javax.annotation-api")
+    implementation("io.micronaut.aws:micronaut-aws-sdk-v2")
+    implementation("io.micronaut:micronaut-http-client")
+    implementation("io.micronaut:micronaut-management")
+    implementation("io.micronaut.micrometer:micronaut-micrometer-core")
+    implementation("io.micronaut.micrometer:micronaut-micrometer-registry-prometheus")
+//    implementation("io.micronaut.flyway:micronaut-flyway")
+    implementation("io.micronaut.sql:micronaut-jdbc-hikari")
+    implementation("io.micronaut.data:micronaut-data-hibernate-jpa")
+    implementation("io.micronaut.beanvalidation:micronaut-hibernate-validator")
+    implementation("io.micronaut.sql:micronaut-hibernate-jpa")
+
+    implementation "org.springframework.security:spring-security-crypto:${springSecurityCryptoVersion}"
+//    implementation("io.micronaut.views:micronaut-views-handlebars")
+
+    implementation("io.micronaut.security:micronaut-security")
+    implementation("io.micronaut.security:micronaut-security-jwt")
+    implementation("io.micronaut.security:micronaut-security-session")
+    implementation("io.micronaut.kotlin:micronaut-kotlin-extension-functions")
+    implementation("io.micronaut.cache:micronaut-cache-ehcache")
+    runtimeOnly("ch.qos.logback:logback-classic")
+    runtimeOnly("com.fasterxml.jackson.module:jackson-module-kotlin")
+    runtimeOnly("mysql:mysql-connector-java")
+    testRuntimeOnly("org.testcontainers:mysql")
+}
+
+
+application {
+    mainClass.set("ge.lis.cubiq.ApplicationKt")
+}
+
+java {
+    sourceCompatibility = JavaVersion.toVersion("11")
+}
+
+tasks {
+    compileKotlin {
+        kotlinOptions {
+            jvmTarget = "11"
+        }
+    }
+    compileTestKotlin {
+        kotlinOptions {
+            jvmTarget = "11"
+        }
+    }
+
+}
+

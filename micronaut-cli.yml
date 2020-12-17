@@ -1,0 +1,6 @@
+applicationType: default
+defaultPackage: ge.lis.cubiq
+testFramework: junit
+sourceLanguage: kotlin
+buildTool: gradle
+features: [annotation-api, app-name, aws-v2-sdk, cache-ehcache, config4k, data, data-jpa, flyway, gradle, hibernate-jpa, hibernate-validator, http-client, jdbc-hikari, junit, kotlin, kotlin-application, kotlin-extension-functions, logback, management, micrometer, micrometer-prometheus, mysql, netty-server, readme, security, security-annotations, security-jwt, security-session, shade, testcontainers]
