@@ -6,6 +6,7 @@ import io.micronaut.runtime.event.annotation.EventListener
 import mu.KotlinLogging
 import org.jdbi.v3.core.Jdbi
 import org.jdbi.v3.core.kotlin.KotlinPlugin
+import org.jdbi.v3.jackson2.Jackson2Plugin
 import org.jdbi.v3.sqlobject.SqlObjectPlugin
 import org.jdbi.v3.sqlobject.kotlin.KotlinSqlObjectPlugin
 import javax.inject.Inject
@@ -27,7 +28,11 @@ class SampleEventListener {
 
   @EventListener
   internal fun onStartupEvent(event: StartupEvent) {//ShutdownEvent, HttpRequestTerminatedEvent, HttpRequestReceivedEvent
-    jdbi = jdbi.installPlugin(SqlObjectPlugin()).installPlugin(KotlinPlugin()).installPlugin(KotlinSqlObjectPlugin())
+    jdbi = jdbi.installPlugin(SqlObjectPlugin())
+        .installPlugin(KotlinPlugin())
+        .installPlugin(KotlinSqlObjectPlugin())
+        .installPlugin(Jackson2Plugin())
+//    jdbi.getConfig(Jackson2Config.class).setMapper(myObjectMapper)
     logger.info { "StartupEvent - ${event.toString().substring(range = 27..38)}" }
   }
 }
