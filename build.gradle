@@ -2,7 +2,7 @@ plugins {
     id("org.jetbrains.kotlin.jvm") version "1.4.10"
     id("org.jetbrains.kotlin.kapt") version "1.4.10"
     id("org.jetbrains.kotlin.plugin.allopen") version "1.4.10"
-    id("org.jetbrains.kotlin.plugin.jpa") version "1.4.10"
+//    id("org.jetbrains.kotlin.plugin.jpa") version "1.4.10"
     id("com.github.johnrengelman.shadow") version "6.1.0"
     id("io.micronaut.application") version "1.2.0"
 }
@@ -25,7 +25,8 @@ micronaut {
 }
 
 dependencies {
-    kapt("io.micronaut.data:micronaut-data-processor")
+//    annotationProcessor("io.micronaut.data:micronaut-data-processor")
+//    kapt("io.micronaut.data:micronaut-data-processor")
     kapt("io.micronaut.security:micronaut-security-annotations")
     implementation("io.micronaut:micronaut-validation")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinVersion}")
@@ -35,27 +36,34 @@ dependencies {
     implementation("javax.annotation:javax.annotation-api")
     implementation("io.micronaut.aws:micronaut-aws-sdk-v2")
     implementation("io.micronaut:micronaut-http-client")
+    implementation("io.micronaut.beanvalidation:micronaut-hibernate-validator")
+
     implementation("io.micronaut:micronaut-management")
     implementation("io.micronaut.micrometer:micronaut-micrometer-core")
     implementation("io.micronaut.micrometer:micronaut-micrometer-registry-prometheus")
 //    implementation("io.micronaut.flyway:micronaut-flyway")
-    implementation("io.micronaut.sql:micronaut-jdbc-hikari")
-    implementation("io.micronaut.data:micronaut-data-hibernate-jpa")
-    implementation("io.micronaut.beanvalidation:micronaut-hibernate-validator")
-    implementation("io.micronaut.sql:micronaut-hibernate-jpa")
 
-    implementation "org.springframework.security:spring-security-crypto:${springSecurityCryptoVersion}"
-//    implementation("io.micronaut.views:micronaut-views-handlebars")
+    implementation("io.micronaut.sql:micronaut-jdbi")
+    implementation("io.micronaut.sql:micronaut-jdbc-hikari")
+    runtimeOnly("mysql:mysql-connector-java")
+    implementation("io.micronaut.cache:micronaut-cache-caffeine")
+//    testRuntimeOnly("org.testcontainers:mysql")
+    testRuntimeOnly("com.h2database:h2:1.4.194")
+    // https://mvnrepository.com/artifact/org.jdbi/jdbi3-kotlin-sqlobject
+    compile group: 'org.jdbi', name: 'jdbi3-kotlin-sqlobject', version: '3.17.0'
+
 
     implementation("io.micronaut.security:micronaut-security")
     implementation("io.micronaut.security:micronaut-security-jwt")
     implementation("io.micronaut.security:micronaut-security-session")
+    implementation "org.springframework.security:spring-security-crypto:${springSecurityCryptoVersion}"
+    // https://mvnrepository.com/artifact/org.slf4j/jcl-over-slf4j
+    compile group: 'org.slf4j', name: 'jcl-over-slf4j', version: '1.7.30'
+
     implementation("io.micronaut.kotlin:micronaut-kotlin-extension-functions")
-    implementation("io.micronaut.cache:micronaut-cache-ehcache")
+    compile 'io.github.microutils:kotlin-logging:2.0.3'
     runtimeOnly("ch.qos.logback:logback-classic")
     runtimeOnly("com.fasterxml.jackson.module:jackson-module-kotlin")
-    runtimeOnly("mysql:mysql-connector-java")
-    testRuntimeOnly("org.testcontainers:mysql")
 }
 
 
