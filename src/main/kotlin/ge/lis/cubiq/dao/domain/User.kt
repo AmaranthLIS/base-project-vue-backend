@@ -1,7 +1,7 @@
 package ge.lis.cubiq.dao.domain
 
 import com.fasterxml.jackson.annotation.JsonIgnore
-import javax.persistence.*
+//import javax.persistence.*
 import java.time.LocalDateTime
 
 /**
@@ -9,11 +9,11 @@ import java.time.LocalDateTime
  * @Author: lis, Luganskiy Igor, foxigs@gmail.com
  * Date: 16.12.2020  * Time: 17:43
  */
-@Entity
-@Table(name = "users")
+//@Entity
+//@Table(name = "users")
 data class User(
-  @Id
-  @GeneratedValue(strategy = GenerationType.SEQUENCE)
+//  @Id
+//  @GeneratedValue(strategy = GenerationType.SEQUENCE)
   var id: Long,
   var email: String,
   var username: String,

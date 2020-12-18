@@ -2,7 +2,7 @@ package ge.lis.cubiq.dao.repository
 
 import ge.lis.cubiq.dao.domain.SortingAndOrderArguments
 import ge.lis.cubiq.dao.domain.User
-import javax.validation.constraints.NotBlank
+//import javax.validation.constraints.NotBlank
 
 /**
  * Created by
@@ -24,7 +24,7 @@ interface UserRepository {
 
   fun findAll(args: SortingAndOrderArguments): List<User>
 
-  fun updatePassword(id: Long, @NotBlank password: String): Int
+  fun updatePassword(id: Long,  password: String): Int
 
-  fun updateActivated(id: Long, @NotBlank activated: Boolean): Int
+  fun updateActivated(id: Long, activated: Boolean): Int
 }
