@@ -27,6 +27,7 @@ micronaut {
 dependencies {
 //    annotationProcessor("io.micronaut.data:micronaut-data-processor")
 //    kapt("io.micronaut.data:micronaut-data-processor")
+//    compileOnly("org.graalvm.nativeimage:svm")
     kapt("io.micronaut.security:micronaut-security-annotations")
     implementation("io.micronaut:micronaut-validation")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinVersion}")
@@ -51,11 +52,13 @@ dependencies {
     testRuntimeOnly("com.h2database:h2:1.4.194")
     // https://mvnrepository.com/artifact/org.jdbi/jdbi3-kotlin-sqlobject
     compile group: 'org.jdbi', name: 'jdbi3-kotlin-sqlobject', version: '3.17.0'
+    compile group: 'org.jdbi', name: 'jdbi3-json', version: '3.17.0'
+    compile group: 'org.jdbi', name: 'jdbi3-jackson2', version: '3.17.0'
 
 
     implementation("io.micronaut.security:micronaut-security")
     implementation("io.micronaut.security:micronaut-security-jwt")
-    implementation("io.micronaut.security:micronaut-security-session")
+//    implementation("io.micronaut.security:micronaut-security-session")
     implementation "org.springframework.security:spring-security-crypto:${springSecurityCryptoVersion}"
     // https://mvnrepository.com/artifact/org.slf4j/jcl-over-slf4j
     compile group: 'org.slf4j', name: 'jcl-over-slf4j', version: '1.7.30'
