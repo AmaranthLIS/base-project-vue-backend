@@ -3,7 +3,7 @@ package ge.lis.cubiq.service
 //import edu.umd.cs.findbugs.annotations.NonNull
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import javax.inject.Singleton
-import javax.validation.constraints.NotBlank
+//import javax.validation.constraints.NotBlank
 
 /**
  * Created by
@@ -11,15 +11,15 @@ import javax.validation.constraints.NotBlank
  * Date: 18.12.2020  * Time: 02:20
  */
 @Singleton
-class BCryptPasswordEncoderService: PasswordEncoder {
+open class BCryptPasswordEncoderService: PasswordEncoderService {
 
-  val delegate: org.springframework.security.crypto.password.PasswordEncoder = BCryptPasswordEncoder()
+  private val delegate: org.springframework.security.crypto.password.PasswordEncoder = BCryptPasswordEncoder()
 
-  override fun encode(@NotBlank rawPassword: String): String {
+  override fun encode(rawPassword: String): String {
     return delegate.encode(rawPassword)
   }
 
-  override fun matches(@NotBlank rawPassword: String, @NotBlank encodedPassword: String): Boolean {
+  override fun matches(rawPassword: String, encodedPassword: String): Boolean {
     return delegate.matches(rawPassword, encodedPassword)
   }
 }
