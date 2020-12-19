@@ -21,7 +21,9 @@ fun main(args: Array<String>) {
 
 @Singleton
 class SampleEventListener {
-  private val logger = KotlinLogging.logger {}
+  companion object {
+    val logger = KotlinLogging.logger {}
+  }
 
   @Inject
   lateinit var jdbi : Jdbi
@@ -36,3 +38,5 @@ class SampleEventListener {
     logger.info { "StartupEvent - ${event.toString().substring(range = 27..38)}" }
   }
 }
+
+typealias Tag = Pair<String, Any?>

@@ -20,7 +20,9 @@ import javax.inject.Singleton
 
 @Singleton
 class UserDao {
-  private val LOG = KotlinLogging.logger {}
+  companion object {
+    val LOG = KotlinLogging.logger {}
+  }
 
   @Inject
   lateinit var jdbi : Jdbi

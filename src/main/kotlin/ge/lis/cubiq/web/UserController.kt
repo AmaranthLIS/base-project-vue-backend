@@ -23,8 +23,9 @@ import javax.inject.Inject
 @Secured("isAuthenticated()")
 @Controller("/api/user")
 class UserController {
-
-  private val LOG = KotlinLogging.logger {}
+  companion object {
+    val LOG = KotlinLogging.logger {}
+  }
 
   @Inject
   lateinit var userDao : UserDao
@@ -42,6 +43,7 @@ class UserController {
 
   @Post("/account")
   fun update(principal: Principal, userDTO: User): HttpResponse<Any> {
+    LOG.debug { "updateAccount = $principal" }
     //valid userDTO
 //    userDao.updateAccount(userDTO)
     return HttpResponse.ok("update = $userDTO")
@@ -49,6 +51,7 @@ class UserController {
 
   @Put("/account")
   fun create(principal: Principal, user: AuthUser): HttpResponse<Any> {
+    LOG.debug { "createAccount = $principal" }
     //valid user
 //    userDao.createAccount(user)
     return HttpResponse.ok("update = $user")

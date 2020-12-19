@@ -24,7 +24,9 @@ import javax.inject.Inject
 @Controller("/api/authentication")
 class AuthController {
 
-  private val LOG = KotlinLogging.logger {}
+  companion object {
+    val LOG = KotlinLogging.logger {}
+  }
 
   @Inject
   lateinit var userDao : UserDao

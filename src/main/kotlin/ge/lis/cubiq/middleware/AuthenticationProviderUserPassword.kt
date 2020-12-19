@@ -25,7 +25,9 @@ import javax.inject.Singleton
 @Singleton
 class AuthenticationProviderUserPassword : AuthenticationProvider {
 
-  private val LOG = KotlinLogging.logger {}
+  companion object {
+    val LOG = KotlinLogging.logger {}
+  }
 
   @Inject
   lateinit var userDao : UserDao
