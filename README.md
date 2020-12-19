@@ -1,3 +1,45 @@
+#Project Rest-Admin:
+
+## Feature security-jwt documentation
+
+- [Micronaut Micronaut Security JWT documentation](https://micronaut-projects.github.io/micronaut-security/latest/guide/index.html)
+
+## Feature hibernate-validator documentation
+
+- [Micronaut Hibernate Validator documentation](https://micronaut-projects.github.io/micronaut-hibernate-validator/latest/guide/index.html)
+
+
+
+
+## GraalVM
+Creating native image inside Docker:
+[GraalVM home](https://www.graalvm.org/reference-manual/native-image/) 
+[GraalVM plugin](https://github.com/micronaut-projects/micronaut-gradle-plugin)
+```
+./gradlew dockerBuildNative
+```
+
+Creating native image outside Docker:
+```
+$ sdk use java 20.3.0.r8-grl
+
+$ ./gradlew nativeImage
+```
+
+We can set the name of output file `build/native-image/{name}`
+```groovy
+//build.gradle:
+
+nativeImage {
+    args('--verbose')
+    imageName('hello-world') 
+}
+```
+
+
+
+
+
 ## Feature aws-v2-sdk documentation
 
 - [Micronaut AWS v2 SDK documentation](https://micronaut-projects.github.io/micronaut-aws/latest/guide/)
@@ -35,14 +77,6 @@
 - [Micronaut EHCache Cache documentation](https://micronaut-projects.github.io/micronaut-cache/latest/guide/index.html#ehcache)
 
 - [https://www.ehcache.org/](https://www.ehcache.org/)
-
-## Feature security-jwt documentation
-
-- [Micronaut Micronaut Security JWT documentation](https://micronaut-projects.github.io/micronaut-security/latest/guide/index.html)
-
-## Feature hibernate-validator documentation
-
-- [Micronaut Hibernate Validator documentation](https://micronaut-projects.github.io/micronaut-hibernate-validator/latest/guide/index.html)
 
 ## Feature jdbc-hikari documentation
 
