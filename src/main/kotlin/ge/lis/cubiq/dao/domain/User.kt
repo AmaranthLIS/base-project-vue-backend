@@ -9,20 +9,16 @@ import java.time.LocalDateTime
  * @Author: lis, Luganskiy Igor, foxigs@gmail.com
  * Date: 16.12.2020  * Time: 17:43
  */
-//@Entity
-//@Table(name = "users")
 data class User(
-//  @Id
-//  @GeneratedValue(strategy = GenerationType.SEQUENCE)
-  var id: Long,
-  var email: String,
-  var username: String,
+  var id: Long = 0,
+  var email: String = "",
+  var username: String = "",
   @JsonIgnore
-  var password: String,
-  var activated: Boolean,
-  var createdAt: LocalDateTime,
-  var updatedAt: LocalDateTime,
-  var role: Int, //0 = super, 1 admin, 2 oper, 3 user
+  var password: String = "",
+  var activated: Boolean = false,
+  var createdAt: LocalDateTime = LocalDateTime.now(),
+  var updatedAt: LocalDateTime = LocalDateTime.now(),
+  var role: Int = 3, //0 = super, 1 admin, 2 oper, 3 user
 )
 /*{
   constructor(name: String) : this(0, name)
@@ -33,4 +29,7 @@ data class User(
 data class AuthUser(
   val username: String,
   val password: String,
+  val email: String?,
 )
+
+data class Customer(val username: String?, val fName: String?, val lName: String?, val fNameEng: String?, val lNameEng: String?)

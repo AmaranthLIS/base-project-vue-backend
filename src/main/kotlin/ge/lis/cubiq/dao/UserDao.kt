@@ -1,7 +1,16 @@
 package ge.lis.cubiq.dao
 
 import ge.lis.cubiq.dao.domain.AuthUser
-import org.jdbi.v3.sqlobject.statement.SqlQuery
+import ge.lis.cubiq.dao.domain.User
+import ge.lis.cubiq.dao.repository.UserRepository
+import ge.lis.cubiq.exception.Err.USER_NOT_FOUND
+import ge.lis.cubiq.exception.Err.USER_WRONG_PASSWORD
+import ge.lis.cubiq.service.PasswordEncoderService
+import mu.KotlinLogging
+import org.jdbi.v3.core.Jdbi
+import org.jdbi.v3.sqlobject.kotlin.onDemand
+import javax.inject.Inject
+import javax.inject.Singleton
 
 /**
  * Created by
@@ -9,17 +18,45 @@ import org.jdbi.v3.sqlobject.statement.SqlQuery
  * Date: 17.12.2020  * Time: 23:53
  */
 
-interface UserDao {
-  @SqlQuery("SELECT *  FROM users")
-  fun getUsers(): List<AuthUser>
+@Singleton
+class UserDao {
+  private val LOG = KotlinLogging.logger {}
 
-//  @SqlUpdate("INSERT INTO customers (username, fNameEng) VALUES (:user.username, :user.fNameEng)")
-//  fun insertUser(user: Customer)
+  @Inject
+  lateinit var jdbi : Jdbi
 
-//  @SqlQuery("select username from customers order by id")
-//  @Reversed
-//  @SingleValue
-//  fun singleRow(): List<String?>
+  @Inject
+  lateinit var passwordEncoder: PasswordEncoderService
+
+
+  fun get(username: String) : User? {
+    val userDao = jdbi.onDemand<UserRepository>()
+    return userDao.findByName(username)
+  }
+
+  fun tryAuth(rawPassword: String, user: User?): String? {
+    if (rawPassword.isBlank() || null == user) {
+      LOG.warn { "attempt find user" }
+      return USER_NOT_FOUND
+    }
+    if (! passwordEncoder.matches(rawPassword, user.password)) {
+      LOG.warn { "attempt auth user=${user.username}, wrong password" }
+      return USER_WRONG_PASSWORD
+    }
+    LOG.info { "success auth user=${user.username}" }
+    return null
+  }
+
+  fun createUser(user: AuthUser) : Boolean {
+    val userDao = jdbi.onDemand<UserRepository>()
+    val createdUser = userDao.save(User(
+        email = user.email ?: "${user.username}@mail.def",
+        username = user.username,
+        password = passwordEncoder.encode(user.password) ))
+    return createdUser > 0
+  }
+
+  fun getAll(): List<User> {
+    return jdbi.onDemand<UserRepository>().getAll()
+  }
 }
-
-data class Customer(val username: String?, val fName: String?, val lName: String?, val fNameEng: String?, val lNameEng: String?)
