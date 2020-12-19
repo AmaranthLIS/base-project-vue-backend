@@ -92,3 +92,11 @@ tasks {
 
 }
 
+run {
+    systemProperty "micronaut.environments", System.getProperty('micronaut.environments')
+}
+
+/*nativeImage {
+    args('--verbose')
+    imageName('rest-admin')
+}*/
