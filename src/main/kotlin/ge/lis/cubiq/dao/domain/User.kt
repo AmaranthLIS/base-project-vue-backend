@@ -19,6 +19,7 @@ data class User(
   var createdAt: LocalDateTime = LocalDateTime.now(),
   var updatedAt: LocalDateTime = LocalDateTime.now(),
   var role: Int = 3, //0 = super, 1 admin, 2 oper, 3 user
+  var lastAuth:  LocalDateTime? = null,
 )
 /*{
   constructor(name: String) : this(0, name)
@@ -27,9 +28,10 @@ data class User(
 }*/
 
 data class AuthUser(
-  val username: String,
-  val password: String,
-  val email: String?,
+  var username: String = "",
+  var password: String = "",
+  var email: String? = null,
+  var id: Long? = null,
 )
 
-data class Customer(val username: String?, val fName: String?, val lName: String?, val fNameEng: String?, val lNameEng: String?)
+//data class Customer(val username: String?, val fName: String?, val lName: String?, val fNameEng: String?, val lNameEng: String?)

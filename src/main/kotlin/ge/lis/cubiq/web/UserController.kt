@@ -9,7 +9,6 @@ import io.micronaut.http.annotation.Get
 import io.micronaut.http.annotation.Post
 import io.micronaut.http.annotation.Put
 import io.micronaut.security.annotation.Secured
-import io.micronaut.security.authentication.UserDetails
 import mu.KotlinLogging
 import java.security.Principal
 import javax.inject.Inject
@@ -30,7 +29,7 @@ class UserController {
   @Inject
   lateinit var userDao : UserDao
 
-  @Get("/auth")
+  @Get("/auth")//temp
   fun auth(principal: Principal): Any {
 //    LOG.info { (principal as UserDetails).getAttributes("id") }
     return principal
@@ -53,8 +52,8 @@ class UserController {
   fun create(principal: Principal, user: AuthUser): HttpResponse<Any> {
     LOG.debug { "createAccount = $principal" }
     //valid user
-//    userDao.createAccount(user)
-    return HttpResponse.ok("update = $user")
+    userDao.createUpdateAccount(user)
+    return HttpResponse.ok()
   }
 
   @Get("/list")

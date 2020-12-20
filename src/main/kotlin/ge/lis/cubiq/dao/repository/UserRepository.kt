@@ -7,8 +7,7 @@ import org.jdbi.v3.sqlobject.customizer.BindBean
 import org.jdbi.v3.sqlobject.statement.GetGeneratedKeys
 import org.jdbi.v3.sqlobject.statement.SqlQuery
 import org.jdbi.v3.sqlobject.statement.SqlUpdate
-
-//import javax.validation.constraints.NotBlank
+import java.time.LocalDateTime
 
 /**
  * Created by
@@ -19,9 +18,6 @@ interface UserRepository {
 
   @SqlQuery("SELECT * FROM users")
   fun getAll(): List<User>
-
-//  @SqlUpdate("INSERT INTO customers (username, fNameEng) VALUES (:user.username, :user.fNameEng)")
-//  fun insertUser(user: Customer)
 
   @SqlQuery("SELECT * FROM users WHERE `id` = ? LIMIT 1")
   fun findById(id: Long): User?
@@ -38,6 +34,12 @@ interface UserRepository {
   @SqlUpdate("INSERT INTO users (id, email, username, password, activated) VALUES (NULL, :email, :username, :password, :activated)")
   @GetGeneratedKeys("id")
   fun save(@BindBean user: User): Long
+
+  @SqlUpdate("INSERT INTO users (id, username, password, email, role, activated) VALUES (NULL, :username, :password, :email, 2, 1)")
+  fun insertUser(@BindBean user: AuthUser)
+
+  @SqlUpdate("UPDATE users SET `last_auth` = :lastAuthTime WHERE id = :id")
+  fun updateLastAuth(id: Long, lastAuthTime: LocalDateTime)
 
 //  fun deleteById(id: Long)
 

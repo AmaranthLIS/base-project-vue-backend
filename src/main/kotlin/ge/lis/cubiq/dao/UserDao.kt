@@ -9,6 +9,7 @@ import ge.lis.cubiq.service.PasswordEncoderService
 import mu.KotlinLogging
 import org.jdbi.v3.core.Jdbi
 import org.jdbi.v3.sqlobject.kotlin.onDemand
+import java.time.LocalDateTime
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -45,6 +46,8 @@ class UserDao {
       LOG.warn { "attempt auth user=${user.username}, wrong password" }
       return USER_WRONG_PASSWORD
     }
+    val userDao = jdbi.onDemand<UserRepository>()
+    userDao.updateLastAuth(user.id, LocalDateTime.now())
     LOG.info { "success auth user=${user.username}" }
     return null
   }
@@ -60,5 +63,10 @@ class UserDao {
 
   fun getAll(): List<User> {
     return jdbi.onDemand<UserRepository>().getAll()
+  }
+
+  fun createUpdateAccount(user: AuthUser) {
+    user.password = passwordEncoder.encode(user.password)
+    return jdbi.onDemand<UserRepository>().insertUser(user)
   }
 }
