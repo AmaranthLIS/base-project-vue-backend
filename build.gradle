@@ -2,7 +2,6 @@ plugins {
     id("org.jetbrains.kotlin.jvm") version "1.4.10"
     id("org.jetbrains.kotlin.kapt") version "1.4.10"
     id("org.jetbrains.kotlin.plugin.allopen") version "1.4.10"
-//    id("org.jetbrains.kotlin.plugin.jpa") version "1.4.10"
     id("com.github.johnrengelman.shadow") version "6.1.0"
     id("io.micronaut.application") version "1.2.0"
 }
@@ -25,9 +24,6 @@ micronaut {
 }
 
 dependencies {
-//    annotationProcessor("io.micronaut.data:micronaut-data-processor")
-//    kapt("io.micronaut.data:micronaut-data-processor")
-//    compileOnly("org.graalvm.nativeimage:svm")
     kapt("io.micronaut.security:micronaut-security-annotations")
     implementation("io.micronaut:micronaut-validation")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinVersion}")
@@ -46,14 +42,19 @@ dependencies {
 
     implementation("io.micronaut.sql:micronaut-jdbi")
     implementation("io.micronaut.sql:micronaut-jdbc-hikari")
-    runtimeOnly("mysql:mysql-connector-java")
+//    runtimeOnly("mysql:mysql-connector-java")
+    runtimeOnly("org.postgresql:postgresql")
     implementation("io.micronaut.cache:micronaut-cache-caffeine")
 //    testRuntimeOnly("org.testcontainers:mysql")
     testRuntimeOnly("com.h2database:h2:1.4.194")
     // https://mvnrepository.com/artifact/org.jdbi/jdbi3-kotlin-sqlobject
-    compile group: 'org.jdbi', name: 'jdbi3-kotlin-sqlobject', version: '3.17.0'
-    compile group: 'org.jdbi', name: 'jdbi3-json', version: '3.17.0'
-    compile group: 'org.jdbi', name: 'jdbi3-jackson2', version: '3.17.0'
+    compile group: 'org.jdbi', name: 'jdbi3-kotlin-sqlobject', version: '3.18.0'
+//    compile group: 'org.jdbi', name: 'jdbi3-json', version: '3.18.0'
+    compile group: 'org.jdbi', name: 'jdbi3-jackson2', version: '3.18.0'
+    // https://mvnrepository.com/artifact/org.jdbi/jdbi3-postgres
+    compile group: 'org.jdbi', name: 'jdbi3-postgres', version: '3.18.0'
+//    compile group: 'org.jdbi', name: 'jdbi3-postgres', version: '3.18.0'
+
 
 
     implementation("io.micronaut.security:micronaut-security")
