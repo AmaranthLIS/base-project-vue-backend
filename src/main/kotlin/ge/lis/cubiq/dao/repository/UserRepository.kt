@@ -38,16 +38,19 @@ interface UserRepository {
   @SqlUpdate("INSERT INTO users (id, username, password, email, role, activated) VALUES (NULL, :username, :password, :email, 2, 1)")
   fun insertUser(@BindBean user: AuthUser)
 
-  @SqlUpdate("UPDATE users SET `last_auth` = :lastAuthTime WHERE id = :id")
-  fun updateLastAuth(id: Long, lastAuthTime: LocalDateTime)
+  @SqlUpdate("UPDATE users SET last_auth = NOW() WHERE id = :id")
+  fun updateLastAuth(id: Long)
 
-//  fun deleteById(id: Long)
+  @SqlUpdate("DELETE FROM users WHERE id = :id")
+  fun deleteById(id: Long)
 
 //  fun findAll(args: SortingAndOrderArguments): List<User>
 
-//  fun updatePassword(id: Long,  password: String): Int
+  @SqlUpdate("UPDATE users SET password = :password WHERE id = :id")
+  fun updatePassword(id: Long, password: String): Int
 
-//  fun updateActivated(id: Long, activated: Boolean): Int
+  @SqlUpdate("UPDATE users SET activated = :activated WHERE id = :id")
+  fun updateActivated(id: Long, activated: Boolean): Int
 }
 
 

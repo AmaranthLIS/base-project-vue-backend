@@ -47,7 +47,7 @@ class UserDao {
       return USER_WRONG_PASSWORD
     }
     val userDao = jdbi.onDemand<UserRepository>()
-    userDao.updateLastAuth(user.id, LocalDateTime.now())
+    userDao.updateLastAuth(user.id)
     LOG.info { "success auth user=${user.username}" }
     return null
   }
