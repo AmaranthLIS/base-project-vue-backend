@@ -12,4 +12,8 @@
     <root level="info">
         <appender-ref ref="STDOUT" />
     </root>
+
+    <logger name="ge.lis.cubiq" level="TRACE" />
+    <logger name="io.micronaut.security" level="DEBUG" />
+    <logger name="io.micronaut.web.router" level="DEBUG" />
 </configuration>
