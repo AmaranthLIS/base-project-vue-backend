@@ -1,5 +1,6 @@
 package ge.lis.cubiq
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import io.micronaut.context.event.StartupEvent
 import io.micronaut.runtime.Micronaut.*
 import io.micronaut.runtime.event.annotation.EventListener
@@ -39,4 +40,9 @@ class SampleEventListener {
   }
 }
 
+
 typealias Tag = Pair<String, Any?>
+
+@JsonDeserialize
+data class Lang(var en: String? = null, var ru: String? = null) {}
+//@RegisterMapper divided into @RegisterRowMapper and @RegisterColumnMapper.
