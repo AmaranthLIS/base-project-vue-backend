@@ -1,6 +1,7 @@
 package ge.lis.cubiq.web
 
 import io.micronaut.core.io.ResourceResolver
+import io.micronaut.http.HttpResponse
 import io.micronaut.http.HttpStatus
 import io.micronaut.http.MediaType
 import io.micronaut.http.annotation.Controller
@@ -8,6 +9,8 @@ import io.micronaut.http.annotation.Error
 import io.micronaut.http.annotation.Get
 import io.micronaut.http.annotation.Produces
 import io.micronaut.http.server.types.files.StreamedFile
+import mu.KotlinLogging
+import java.security.Principal
 import java.util.*
 import javax.inject.Inject
 
@@ -18,14 +21,17 @@ import javax.inject.Inject
  */
 @Controller("/api/bundle")
 class BundleController {
-
-  @Inject
-  var resourceResolver: ResourceResolver? = null
-
-//  @Error(global = true, status = HttpStatus.NOT_FOUND)
-  @Produces(MediaType.TEXT_HTML)
-  @Get("/")
-  fun forward(): Optional<StreamedFile?>? {
-    return resourceResolver?.getResource("classpath:static/index.html")?.map { ( StreamedFile(it)) }
+  companion object {
+    val LOG = KotlinLogging.logger {}
   }
+
+//  @Inject
+//  lateinit var bundleDao: BundleDao
+
+  @Get("/list")
+  fun list(): Any {
+//    LOG.info {  }
+    return HttpResponse.ok("")
+  }
+
 }

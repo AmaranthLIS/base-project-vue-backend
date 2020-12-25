@@ -19,35 +19,38 @@ interface UserRepository {
   @SqlQuery("SELECT * FROM users")
   fun getAll(): List<User>
 
-  @SqlQuery("SELECT * FROM users WHERE `id` = ? LIMIT 1")
+  @SqlQuery("SELECT * FROM users WHERE id = ? LIMIT 1")
   fun findById(id: Long): User?
 
-  @SqlQuery("SELECT * FROM users WHERE `username` = ? LIMIT 1")
+  @SqlQuery("SELECT * FROM users WHERE username = ? LIMIT 1")
   fun findByName(username: String): User?
 
-  @SqlQuery("SELECT * FROM users WHERE `username` = ? AND `password` = ? LIMIT 1")
+  @SqlQuery("SELECT * FROM users WHERE username = ? AND password = ? LIMIT 1")
   fun findByUsernameAndPassword(username: String, password: String): User?
 
-  @SqlQuery("SELECT * FROM users WHERE `email` = ? LIMIT 1")
+  @SqlQuery("SELECT * FROM users WHERE email = ? LIMIT 1")
   fun findByEmail(email: String): User?
 
-  @SqlUpdate("INSERT INTO users (id, email, username, password, activated) VALUES (NULL, :email, :username, :password, :activated)")
+  @SqlUpdate("INSERT INTO users (email, username, password, activated) VALUES (:email, :username, :password, :activated)")
   @GetGeneratedKeys("id")
   fun save(@BindBean user: User): Long
 
-  @SqlUpdate("INSERT INTO users (id, username, password, email, role, activated) VALUES (NULL, :username, :password, :email, 2, 1)")
+  @SqlUpdate("INSERT INTO users (username, password, email, role, activated, created_at, updated_at) VALUES (:username, :password, :email, 2, 1, NOW(), NOW())")
   fun insertUser(@BindBean user: AuthUser)
 
-  @SqlUpdate("UPDATE users SET `last_auth` = :lastAuthTime WHERE id = :id")
-  fun updateLastAuth(id: Long, lastAuthTime: LocalDateTime)
+  @SqlUpdate("UPDATE users SET last_auth = NOW() WHERE id = :id")
+  fun updateLastAuth(id: Long)
 
-//  fun deleteById(id: Long)
+  @SqlUpdate("DELETE FROM users WHERE id = :id")
+  fun deleteById(id: Long)
 
 //  fun findAll(args: SortingAndOrderArguments): List<User>
 
-//  fun updatePassword(id: Long,  password: String): Int
+  @SqlUpdate("UPDATE users SET password = :password WHERE id = :id")
+  fun updatePassword(id: Long, password: String): Int
 
-//  fun updateActivated(id: Long, activated: Boolean): Int
+  @SqlUpdate("UPDATE users SET activated = :activated WHERE id = :id")
+  fun updateActivated(id: Long, activated: Boolean): Int
 }
 
 
