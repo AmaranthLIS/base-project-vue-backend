@@ -40,7 +40,7 @@ class UserController {
     return HttpResponse.ok( userDao.get(principal.name) )
   }
 
-  @Post("/account")
+  @Put("/account")
   fun update(principal: Principal, userDTO: User): HttpResponse<Any> {
     LOG.debug { "updateAccount = $principal" }
     //valid userDTO
@@ -48,7 +48,7 @@ class UserController {
     return HttpResponse.ok("update = $userDTO")
   }
 
-  @Put("/account")
+  @Post("/account")
   fun create(principal: Principal, user: AuthUser): HttpResponse<Any> {
     LOG.debug { "createAccount = $principal" }
     //valid user
